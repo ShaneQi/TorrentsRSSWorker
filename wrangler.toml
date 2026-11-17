@@ -1,0 +1,15 @@
+name = "torrents"
+main = "worker.js"
+compatibility_date = "2025-11-01"
+
+# Keep the existing torrents.<subdomain>.workers.dev URL on. Routes and custom
+# domains are managed in the dashboard.
+workers_dev = true
+
+# Bindings are managed in the Cloudflare dashboard, not here: the KV namespaces
+# (FEED_MOVIES, FEED_SHOWS), the variables (TRACKER_DOWNLOAD_URL,
+# ACCESS_TEAM_DOMAIN, ACCESS_AUD) and the secrets (PATH_SECRET,
+# TRACKER_DOWNLOAD_TOKEN). keep_bindings tells the upload API to keep the
+# existing bindings of these types, so a deploy only replaces the code.
+[unsafe.metadata]
+keep_bindings = ["kv_namespace", "plain_text", "json", "secret_text", "secret_key"]

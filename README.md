@@ -36,3 +36,16 @@ The tracker token and the feed secret are shown as `***` in every tool response.
 `/mcp` must sit behind Cloudflare Access, and the Worker also verifies the `Cf-Access-Jwt-Assertion` token itself (signature, audience, issuer, expiry). It returns 403 without a valid token, and 500 if the Access variables aren't set.
 
 The feeds must stay public, because the Download Center can't sign in. Add a second Access application for the `/f` path with a Bypass policy for everyone.
+
+## Deployment
+
+`.github/workflows/deploy.yml` deploys the `torrents` Worker with Wrangler on every push to `main`, and on demand from the Actions tab.
+
+GitHub repository settings needed:
+
+| Name | Kind | Value |
+|---|---|---|
+| `CLOUDFLARE_API_TOKEN` | Secret | API token with the *Edit Cloudflare Workers* template permissions |
+| `CLOUDFLARE_ACCOUNT_ID` | Secret | Cloudflare account ID |
+
+KV bindings, variables, secrets and routes stay in the Cloudflare dashboard: `wrangler.toml` declares none of them and asks the upload API to keep the existing bindings (`keep_bindings`), so a deploy only replaces the code.
