@@ -2,8 +2,9 @@ name = "torrents"
 main = "worker.js"
 compatibility_date = "2025-11-01"
 
-# Routes / custom domains are managed in the dashboard.
-workers_dev = false
+# Keep the existing torrents.<subdomain>.workers.dev URL on. Routes and custom
+# domains are managed in the dashboard.
+workers_dev = true
 
 # Bindings are managed in the Cloudflare dashboard, not here: the KV namespaces
 # (FEED_MOVIES, FEED_SHOWS), the variables (TRACKER_DOWNLOAD_URL,
