@@ -47,7 +47,5 @@ GitHub repository settings needed:
 |---|---|---|
 | `CLOUDFLARE_API_TOKEN` | Secret | API token with the *Edit Cloudflare Workers* template permissions |
 | `CLOUDFLARE_ACCOUNT_ID` | Secret | Cloudflare account ID |
-| `KV_MOVIES_ID` | Variable | KV namespace ID bound as `FEED_MOVIES` |
-| `KV_SHOWS_ID` | Variable | KV namespace ID bound as `FEED_SHOWS` |
 
-Variables, secrets and routes stay in the Cloudflare dashboard: `wrangler.toml` sets `keep_vars = true` and declares no routes, so a deploy only changes the code and KV bindings.
+KV bindings, variables, secrets and routes stay in the Cloudflare dashboard: `wrangler.toml` declares none of them and asks the upload API to keep the existing bindings (`keep_bindings`), so a deploy only replaces the code.

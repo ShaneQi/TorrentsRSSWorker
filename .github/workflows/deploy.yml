@@ -15,15 +15,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Fill in KV namespace ids
-        env:
-          KV_MOVIES_ID: ${{ vars.KV_MOVIES_ID }}
-          KV_SHOWS_ID: ${{ vars.KV_SHOWS_ID }}
-        run: |
-          test -n "$KV_MOVIES_ID" || { echo "::error::Repository variable KV_MOVIES_ID is not set"; exit 1; }
-          test -n "$KV_SHOWS_ID" || { echo "::error::Repository variable KV_SHOWS_ID is not set"; exit 1; }
-          sed -i "s/__KV_MOVIES_ID__/$KV_MOVIES_ID/; s/__KV_SHOWS_ID__/$KV_SHOWS_ID/" wrangler.toml
-
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:

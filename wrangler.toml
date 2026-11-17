@@ -2,20 +2,13 @@ name = "torrents"
 main = "worker.js"
 compatibility_date = "2025-11-01"
 
-# Plain variables (TRACKER_DOWNLOAD_URL, ACCESS_TEAM_DOMAIN, ACCESS_AUD) and
-# secrets (PATH_SECRET, TRACKER_DOWNLOAD_TOKEN) are managed in the Cloudflare
-# dashboard. keep_vars stops deploys from wiping the dashboard variables.
-keep_vars = true
-
 # Routes / custom domains are managed in the dashboard.
 workers_dev = false
 
-# The ids are filled in by the deploy workflow from the GitHub repository
-# variables KV_MOVIES_ID and KV_SHOWS_ID.
-[[kv_namespaces]]
-binding = "FEED_MOVIES"
-id = "__KV_MOVIES_ID__"
-
-[[kv_namespaces]]
-binding = "FEED_SHOWS"
-id = "__KV_SHOWS_ID__"
+# Bindings are managed in the Cloudflare dashboard, not here: the KV namespaces
+# (FEED_MOVIES, FEED_SHOWS), the variables (TRACKER_DOWNLOAD_URL,
+# ACCESS_TEAM_DOMAIN, ACCESS_AUD) and the secrets (PATH_SECRET,
+# TRACKER_DOWNLOAD_TOKEN). keep_bindings tells the upload API to keep the
+# existing bindings of these types, so a deploy only replaces the code.
+[unsafe.metadata]
+keep_bindings = ["kv_namespace", "plain_text", "json", "secret_text", "secret_key"]
